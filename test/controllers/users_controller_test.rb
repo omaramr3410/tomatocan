@@ -8,12 +8,6 @@ class UsersControllerTest < ActionController::TestCase
     # sign_in @user
   end
 
-  test "should get index" do
-    get :index
-    assert_response :success
-  end
-
-
   test "should check index" do
     sign_in @user
     assert_equal(@user.id, 1)
@@ -21,11 +15,6 @@ class UsersControllerTest < ActionController::TestCase
   test "should equate youtube field" do
     youtube="youtube"
     assert_equal(youtube,@user.youtube)
-  end
-
-  test "should get users youtubers" do
-    get :youtubers
-    assert_response :success
   end
 
   test "should verify user name" do
