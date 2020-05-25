@@ -18,11 +18,11 @@
         <div style="font-size: 40px; color:#ffc627; font-family: 'Arial';" >
           <br><%= link_to "Grassroots Movements via Video Chat to keep you Well-Informed", getinvolved_path, class: "topic_link", title: "Like a cocktail party on Zoom" %>
         </div>
-            
+
         <% if @displayconvo.present? %>
           <% if (Time.current > Time.parse(@start_time)) && (Time.current < Time.parse(@end_time)) %>
             <div id="eventCurrentdiv">
-              <h3>Conversation <%= link_to @name, event_path(@displayconvo.id), title: @description, style: "text-shadow: 1px 1px 1px #fff" %></h3>  
+              <h3>Conversation <%= link_to @name, event_path(@displayconvo.id), title: @description, style: "text-shadow: 1px 1px 1px #fff" %></h3>
               <p> is happening right NOW!</p><br>
               <%= link_to " Join Conversation ", "https://thinQtv.herokuapp.com/" + @host.permalink, class: "btn btn-primary btn-lg fa fa-video-camera", style: "margin-top: 10px; margin-bottom: 10px; font-size: 50px; border-radius: 5px;" %><br>
               Hosted by: <%= link_to @host.name, @host.permalink, style: "font-size: 40px; text-shadow: 1px 1px 1px #fff" %>
@@ -58,7 +58,7 @@
   <div class="row" id="calendar">
     <div class="col-md-9 col-md-offset-1 col-xs-11">
       <%= render 'layouts/maincalendar', collection: @events %>
-    </div>     
+    </div>
   </div>
   <div class="row" id="purpose">
     <div class="col-md-3 col-md-offset-1", style="margin-top: 40px">
