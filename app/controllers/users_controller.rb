@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, except: [:new, :index, :supportourwork, :youtubers, :create, :stripe_callback ]
   before_action :authenticate_user!, only: [:edit, :update, :dashboard ]
 
-  #before_action :correct_user, only: [:dashboard, :user_id] 
+  #before_action :correct_user, only: [:dashboard, :user_id]
   #before_action :correct_user, only: [:controlpanel] 
   #Where did this method go?
 
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     currconvo = Event.where( "start_at < ? AND end_at > ? AND usrid = ?", pdtnow, pdtnow, id ).first
     if currconvo.present?
       @displayconvo = currconvo
-    end  
+    end
 
     userid = @user.id
     upcomingevents = Event.where("start_at > ? AND usrid = ?", Time.now - 10.hours , userid).order('start_at ASC')
@@ -133,7 +133,7 @@ class UsersController < ApplicationController
       format.html
       format.json { render json: @user }
     end
-    if @user.merchandises.any? 
+    if @user.merchandises.any?
       expiredmerch = @user.merchandises.where("deadline < ?", Date.today)
       @expiredmerchandise = expiredmerch.order('deadline ASC')
     end
@@ -177,8 +177,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    #    @user.latitude = request.location.latitude #geocoder has become piece of junk
-    #    @user.longitude = request.location.longitude
+
     if @user.save
       @user.get_youtube_id
       sign_in @user
@@ -186,7 +185,7 @@ class UsersController < ApplicationController
       UserMailer.with(user: @user).welcome_email.deliver_later
     else
        redirect_to new_user_signup_path, danger: signup_error_message
-      #redirect_to new_user_signup_path
+
       @user.errors.clear
     end
   end
@@ -198,8 +197,7 @@ class UsersController < ApplicationController
       bypass_sign_in @user
       redirect_to user_profile_path(current_user.permalink)
     else
-      #      flash[:notice] = flash[:notice].to_a.concat resource.errors.full_messages
-      #redirect_to user_profileinfo_path(current_user.permalink), :notice => "Your profile was not saved. Check character counts or filetype for profile picture."
+
 
       if params[:user][:on_password_reset] == "changepassword"
         redirect_to user_changepassword_path(current_user.permalink), danger: update_error_message
@@ -226,11 +224,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:permalink, :name, :email, :password, 
-                                 :about, :author, :password_confirmation, :genre1, :genre2, :genre3, 
-                                 :twitter, :title, :profilepic, :profilepicurl, :remember_me, 
-                                 :facebook, :address, :latitude, :longitude, :youtube1, :youtube2, 
-                                 :youtube3, :videodesc1, :videodesc2, :videodesc3, :updating_password, 
+    params.require(:user).permit(:permalink, :name, :email, :password,
+                                 :about, :author, :password_confirmation, :genre1, :genre2, :genre3,
+                                 :twitter, :title, :profilepic, :profilepicurl, :remember_me,
+                                 :facebook, :address, :latitude, :longitude, :youtube1, :youtube2,
+                                 :youtube3, :videodesc1, :videodesc2, :videodesc3, :updating_password,
                                  :agreeid, :purchid, :bannerpic, :on_password_reset, :stripesignup )
   end
 
@@ -245,9 +243,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def set_user 
+  def set_user
     @user = User.find_by_permalink(params[:permalink]) || current_user
-    if @user.merchandises.any? 
+    if @user.merchandises.any?
       notexpiredmerch = @user.merchandises.where("deadline >= ? OR deadline IS NULL", Date.today)
       deadlineorder = notexpiredmerch.order(deadline: :asc)
 
@@ -256,8 +254,8 @@ class UsersController < ApplicationController
       else
         @sidebarmerchandise = deadlineorder.all[0..0]
       end
-    end 
-  end 
+    end
+  end
 
     # returns a string of error messages for the user signup page
     def signup_error_message
@@ -266,7 +264,7 @@ class UsersController < ApplicationController
         msg += ("Name " + @user.errors.messages[:name][0] + "\n")
       end
       if @user.errors.messages[:email].present?
-        @user.errors.messages[:email].each do |email| 
+        @user.errors.messages[:email].each do |email|
           msg += ("Email " + email + "\n")
       end
       if @user.errors.messages[:permalink].present?

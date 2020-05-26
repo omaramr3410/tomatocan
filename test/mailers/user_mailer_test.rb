@@ -1,9 +1,7 @@
 require 'test_helper'
 
 class UserMailerTest < ActionMailer::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
   setup do
     @user = users(:one)
   end
@@ -13,4 +11,4 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [@user.email] ,mail.to
     assert_equal ['thinqtvstaff@gmail.com'], mail.from
   end
-end 
+end
