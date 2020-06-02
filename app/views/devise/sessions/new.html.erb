@@ -1,3 +1,62 @@
+<style>
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+</style>
+
   <% @title=" Community " %>
 
   <!--Used to display error message when invalid credentials are inputted -->
@@ -5,7 +64,35 @@
     <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
   <%- end -%>
 
+
   <div class="container">
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <% if request.host == "thinqtv.herokuapp.com" %>
       You must confirm your sign in to access Stripe
@@ -26,8 +113,12 @@
               <div class="input-group-addon" style="font-size:20px">
                 &#9993
               </div>
+              <div class="popup" onclick="myFunction()">Click me to toggle the popup!
+                    <span class="popuptext" id="myPopup">A Simple Popup!</span>
+              </div>
               <%= f.email_field :email, placeholder: "Email", :autofocus => true, :class => "form-control" %>
             </div>
+
           </div>
 
           <!-- Password Box -->
@@ -55,21 +146,21 @@
           <% end -%>
 
           <!-- Agree to ToS Prompt -->
-          <div style="text-align:center; margin-top:-15px; margin-bottom:-10px"> 
+          <div style="text-align:center; margin-top:-15px; margin-bottom:-10px">
             <small>By clicking 'Sign In,' you agree to the ThinQ.tv <%= link_to("Terms of Service", tos_path, :target => "_blank") %>.</small><br><br>
-          </div> 
+          </div>
 
           <!-- Sign In Button -->
           <%= f.submit "Sign In", :class => "form-control btn-primary" %>
 
           <br><div style="text-align:center">OR</div><br>
 
-          <!-- Log In With Facebook 
+          <!-- Log In With Facebook
           <div style="text-align:center">
             <%- resource_class.omniauth_providers.each do |provider| %>
               <a href="/users/auth/facebook" style="margin-top: 8px; margin-bottom: 10px; border: 1px solid transparent; border-radius: 3px; padding: 8px; font-family: Helvetica, Arial, sans-serif; font-size: 15px; text-decoration: none; background-color: #4267B2; color: #fff;">
                 <img src="https://cdn.usbrandcolors.com/images/logos/facebook-logo.svg" alt="Facebook Logo" style="width:40px; height:36px; margin-left: -10px">
-                <b>Sign In With Facebook</b> 
+                <b>Sign In With Facebook</b>
               </a>
             <% end -%>
           </div>
@@ -81,3 +172,11 @@
     </div>
   </div>
 </div>
+
+<script>
+//creates a popup when engaged
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+</script>
