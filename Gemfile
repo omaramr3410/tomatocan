@@ -1,17 +1,13 @@
 source 'http://rubygems.org'
-<<<<<<< HEAD
 ruby "2.7.1"
-=======
-ruby "2.5.7"
->>>>>>> ccfb4cae49f5f1c9834bb21e138d2ac18b2583d6
 
 gem 'listen'
 gem 'pg'
 
-gem 'mandrill'	
+gem 'mandrill'
 gem 'devise'
 gem 'fog-aws'   #, '1.6.0'
-gem 'unf' 
+gem 'unf'
 gem 'carrierwave'
 gem 'stripe'
 gem 'oauth2'
@@ -33,7 +29,7 @@ gem 'railties', '6.0.2.2'
 gem  'bootstrap-sass', '~> 3.4.1'
 gem 'autoprefixer-rails'
 #gem 'sprockets'
-gem "will_paginate" 
+gem "will_paginate"
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'jquery-turbolinks'
